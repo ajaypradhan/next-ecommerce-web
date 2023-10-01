@@ -1,8 +1,8 @@
 "use client";
-import Link from "next/link";
-import React from "react";
+import Header from "@/app/components/Header";
+import React, { useState } from "react";
 
-function Deals() {
+function ProductDetails({ params }) {
   const offers = [
     {
       id: "0",
@@ -84,40 +84,53 @@ function Deals() {
       size: "Normal",
     },
   ];
+  const product = offers.find((offer) => offer.id === params?.id);
+  const [index, setIndex] = useState(0);
   return (
-    <div className="mt-4 mx-10 md:mt-32">
-      <h1 className="text-xl font-bold mb-3">Today's Deals</h1>
+    <div>
+      <Header />
 
-      <div className="flex flex-col md:flex-row md:space-x-3">
-        {offers?.map((offer, index) => (
-          <Link href={`/product/${offer?.id}`}>
-            <div
-              key={index}
-              className="p-2 bg-white cursor-pointer shadow-md flex flex-col space-y-2 items-center justify-center"
-            >
+      <div className=" flex gap-40 m-40 mt-20 ">
+        {/* left part */}
+        <div>
+          <div>
+            <img
+              className="w-80 h-80 rounded-sm object-contain cursor-pointer"
+              src={product.carouselImages[index]}
+              alt=""
+            />
+          </div>
+          <div className="hidden lg:flex lg:mt-12 gap-10 mt-10">
+            {product.carouselImages?.map((image, index) => (
               <img
-                className="w-32 h-32 object-contain "
-                src={offer.image}
-                alt=""
+                key={index}
+                className="w-20 h-20 object-contain cursor-pointer"
+                src={image}
+                onMouseEnter={() => setIndex(index)}
+                alt
               />
-              <div>
-                <p>
-                  Upto
-                  {offer?.offer}
-                  <span className="text-rose-600 font-normal text-sm ml-1">
-                    Deal of the day
-                  </span>
-                </p>
-                <p className="truncate font-normal text-sm mt-1 ">
-                  {offer.title.substring(0, 30)}
-                </p>
-              </div>
-            </div>
-          </Link>
-        ))}
+            ))}
+          </div>
+        </div>
+        {/* right part */}
+        <div className="flex flex-col space-y-2">
+          <h1 className="text-lg font-semibold">{product?.title}</h1>
+          <p>Color: {product?.color}</p>
+          <p>Size: {product?.size}</p>
+          <h4>Details: </h4>
+          <p>Price: ₹ {product?.price} </p>
+          <div className="flex flex-col space-y-3">
+            <button className="w-60 rounded-md p-2 mt-2 text-xs md:text-sm bg-gradient-to-b from-yellow-200 to-yellow-400">
+              Add To Cart
+            </button>
+            <button className="w-60 rounded-md p-2 mt-2 text-xs md:text-sm bg-gradient-to-b from-yellow-400 to-yellow-500">
+              Buy Now
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-export default Deals;
+export default ProductDetails;
