@@ -9,6 +9,11 @@ import { PlusSmallIcon } from "@heroicons/react/24/outline";
 
 function Cart() {
   const cart = useSelector((state) => state.cart.cart);
+  const taxes = 65;
+  const total = cart
+    ?.map((cartItem) => cartItem.price * cartItem.quantity)
+    .reduce((prev, curr) => prev + curr, 0);
+  const grandTotal = total + 65;
   return (
     <div>
       <Header />
@@ -109,7 +114,7 @@ function Cart() {
           <div className="bg-white rounded-sm mt-2 p-3 space-y-3">
             <div className="flex items-center justify-between">
               <h4 className="text-xs ">Sub Total</h4>
-              <p className="text-sm font-normal">₹ 500</p>
+              <p className="text-sm font-normal">₹ {total.toFixed(2)}</p>
             </div>
             <div className="flex items-center justify-between">
               <h4 className="text-xs ">Discount</h4>
@@ -117,10 +122,16 @@ function Cart() {
             </div>
             <div className="flex items-center justify-between">
               <h4 className="text-xs ">taxes and Charges</h4>
-              <p className="text-sm font-normal">₹ 65</p>
+              <p className="text-sm font-normal">₹ {taxes}</p>
             </div>
             <hr className="w-full mt-1 decoration-dotted" />
-            <button className="bg-yellow-500 text-center font-normal rounded-md text-white py-2 px-3 w-full">Place Order</button>
+            <div className="flex items-center justify-between">
+              <h4 className="text-xs font-bold">Grand Total</h4>
+              <p className="text-sm font-normal">₹ {grandTotal.toFixed(2)}</p>
+            </div>
+            <button className="bg-yellow-500 text-center font-normal rounded-md text-white py-2 px-3 w-full">
+              Place Order
+            </button>
           </div>
         </div>
       </div>
