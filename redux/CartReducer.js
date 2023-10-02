@@ -18,7 +18,7 @@ export const CartSlice = createSlice({
     },
     removeFromCart: (state, action) => {
       const removeItem = state.cart.filter(
-        (item) => item.id === action.payload.id
+        (item) => item.id !== action.payload.id
       );
       state.cart = removeItem;
     },
@@ -32,9 +32,9 @@ export const CartSlice = createSlice({
       const itemPresent = state.cart.find(
         (item) => item.id === action.payload.id
       );
-      if (itemPresent.quantity == 1) {
+      if (itemPresent.quantity === 1) {
         const removeItem = state.cart.filter(
-          (item) => item.id === action.payload.id
+          (item) => item.id !== action.payload.id
         );
         state.cart = removeItem;
       } else {

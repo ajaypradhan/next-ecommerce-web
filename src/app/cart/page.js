@@ -1,11 +1,16 @@
 "use client";
 import React from "react";
 import Header from "../components/Header";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import { MinusSmallIcon } from "@heroicons/react/24/outline";
 
 import { PlusSmallIcon } from "@heroicons/react/24/outline";
+import {
+  decrementQuantity,
+  incrementQuantity,
+  removeFromCart,
+} from "../../../redux/CartReducer";
 
 function Cart() {
   const cart = useSelector((state) => state.cart.cart);
@@ -14,6 +19,19 @@ function Cart() {
     ?.map((cartItem) => cartItem.price * cartItem.quantity)
     .reduce((prev, curr) => prev + curr, 0);
   const grandTotal = total + 65;
+
+  const dispatch = useDispatch();
+  const increaseQuantity = (item) => {
+    dispatch(incrementQuantity(item));
+  };
+
+  const decreaseQuantity = (item) => {
+    dispatch(decrementQuantity(item));
+  };
+
+  const deleteItem = (item) => {
+    dispatch(removeFromCart(item));
+  };
   return (
     <div>
       <Header />
@@ -50,7 +68,10 @@ function Cart() {
                   </div>
                 )}
                 <div className="flex flex-row space-x-2 mt-1">
-                  <p className="text-sm font-semibold text-cyan-600 cursor-pointer">
+                  <p
+                    onClick={() => deleteItem(item)}
+                    className="text-sm font-semibold text-cyan-600 cursor-pointer"
+                  >
                     Delete
                   </p>
                   <p className="text-sm font-semibold text-cyan-600 cursor-pointer">
@@ -67,6 +88,7 @@ function Cart() {
                 <div className="flex items-center space-x-2 mt-1">
                   <button className="rounded-full bg-gray-500">
                     <MinusSmallIcon
+                      onClick={() => decreaseQuantity(item)}
                       className="text-white h-4 w-4"
                       class="h-6 w-6 text-white"
                     />
@@ -76,6 +98,7 @@ function Cart() {
 
                   <button className="rounded-full bg-gray-500">
                     <PlusSmallIcon
+                      onClick={() => increaseQuantity(item)}
                       className="text-white h-4 w-4"
                       class="h-6 w-6 text-white"
                     />
