@@ -1,11 +1,9 @@
 "use client";
 import Header from "@/app/components/Header";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../../../redux/CartReducer";
 import { groq } from "next-sanity";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { client } from "../../../../ecommerce-app/sanity";
-import { useEffect } from "react";
 
 function ProductDetails({ params }) {
   const offers = [
@@ -89,15 +87,14 @@ function ProductDetails({ params }) {
       size: "Normal",
     },
   ];
-  // const product = offers.find((offer) => offer.id === params?.id);
+  //   const product = offers.find((item) => item.id === params?.id);
   const [index, setIndex] = useState(0);
   const [added, setAdded] = useState(false);
   const dispatch = useDispatch();
-  const addProductToCart = (product) => {
+  const addItemToCart = (item) => {
     setAdded(true);
-    dispatch(addToCart(product));
+    dispatch(addToCart(item));
   };
-
   const { id } = params;
   const [product, setProduct] = useState(null);
   useEffect(() => {
@@ -111,47 +108,51 @@ function ProductDetails({ params }) {
       fetchData();
     }
   }, [id]);
-
+  console.log(product);
   return (
     <div>
       <Header />
-
-      <div className=" flex gap-40 m-40 mt-20 ">
-        {/* left part */}
+      <div className="flex gap-40 m-40 mt-20">
+        {/* Left part */}
         <div>
           <div>
             <img
               className="w-80 h-80 rounded-sm object-contain cursor-pointer"
               src={product?.carouselImages[index]}
-              alt=""
             />
           </div>
           <div className="hidden lg:flex lg:mt-12 gap-10 mt-10">
-            {product?.carouselImages?.map((image, index) => (
+            {product?.carouselImages?.map((item, index) => (
               <img
                 key={index}
                 className="w-20 h-20 object-contain cursor-pointer"
-                src={image}
+                src={item}
                 onMouseEnter={() => setIndex(index)}
-                alt
               />
             ))}
           </div>
         </div>
-        {/* right part */}
+
+        {/* Right Part */}
         <div className="flex flex-col space-y-2">
           <h1 className="text-lg font-semibold">{product?.title}</h1>
-          <p>Color: {product?.color}</p>
-          <p>Size: {product?.size}</p>
-          <h4>Details: </h4>
-          <p>Price: ₹ {product?.price} </p>
+
+          <p>Color : {product?.color}</p>
+
+          <p>Size : {product?.size}</p>
+
+          <h4>Details :</h4>
+
+          <p>Price : Rs{product?.price}</p>
+
           <div className="flex flex-col space-y-3">
             <button
-              onClick={() => addProductToCart(product)}
+              onClick={() => addItemToCart(item)}
               className="w-60 rounded-md p-2 mt-2 text-xs md:text-sm bg-gradient-to-b from-yellow-200 to-yellow-400"
             >
               {added ? "Added to Cart" : "Add to Cart"}
             </button>
+
             <button className="w-60 rounded-md p-2 mt-2 text-xs md:text-sm bg-gradient-to-b from-yellow-400 to-yellow-500">
               Buy Now
             </button>

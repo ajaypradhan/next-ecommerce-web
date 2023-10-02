@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 
 function HeroBanner() {
@@ -49,14 +49,15 @@ function HeroBanner() {
         </div>
       </Carousel>
 
-      <div className="hidden px-10 py-10 lg:flex flex-row space-x-3 absolute mt-2 top-1/3">
-        {cards?.map((card, index) => (
+      <div className="hidden py-10 px-10 lg:flex flex-row space-x-3 absolute mt-2 top-1/3">
+        {cards?.map((item, index) => (
           <div
-            className="p-4 bg-white w-full border shadow-md flex  flex-col space-y-3"
+            className="p-4 bg-white w-full border shadow-md flex flex-col space-y-3"
             key={index}
           >
-            <h1 className="font-bold text-xl">{card.description}</h1>
-            <img className="object-cover w-80 h-80" src={card.image} alt="" />
+            <h1 className="font-bold text-xl">{item?.description}</h1>
+
+            <img className="object-cover w-80 h-80" src={item?.image} />
           </div>
         ))}
       </div>

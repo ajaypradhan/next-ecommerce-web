@@ -11,13 +11,15 @@
   "dependencies": {
     "@heroicons/react": "^2.0.18",
     "@reduxjs/toolkit": "^1.9.6",
+    "@stripe/stripe-js": "^2.1.6",
     "next": "latest",
     "next-sanity": "^5.5.4",
     "react": "latest",
     "react-dom": "latest",
     "react-redux": "^8.1.2",
     "react-responsive-carousel": "^3.2.23",
-    "sanity": "^3.16.7"
+    "sanity": "^3.16.7",
+    "stripe": "^13.8.0"
   },
   "devDependencies": {
     "autoprefixer": "latest",

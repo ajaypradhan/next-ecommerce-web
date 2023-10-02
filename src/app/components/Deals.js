@@ -1,13 +1,11 @@
 "use client";
-import Link from "next/link";
-import React from "react";
-import { client } from "../../../ecommerce-app/sanity";
 import { groq } from "next-sanity";
-import { useState } from "react";
-import { useEffect } from "react";
+import Link from "next/link";
+import React, { useState, useEffect } from "react";
+import { client } from "../../../ecommerce-app/sanity";
 
 async function getData() {
-  return client.fetch(groq`*[_type=="deal"]`);
+  return client.fetch(groq`*[_type == "deal"]`);
 }
 
 function Deals() {
@@ -92,45 +90,37 @@ function Deals() {
       size: "Normal",
     },
   ];
-
-  const [post, setPost] = useState([]);
-
+  const [posts, setPosts] = useState([]);
   useEffect(() => {
     getData()
       .then((data) => {
-        setPost(data);
+        setPosts(data);
       })
       .catch((error) => {
-        console.log("error getting data", error);
+        console.log("error fetching posts", error);
       });
   }, []);
-
+  console.log(posts);
   return (
     <div className="mt-4 mx-10 md:mt-32">
       <h1 className="text-xl font-bold mb-3">Today's Deals</h1>
 
-      <div className="flex flex-col md:flex-row md:space-x-3">
-        {post?.map((offer, index) => (
-          <Link href={`/product/${offer?._id}`}>
-            <div
-              key={index}
-              className="p-2 bg-white cursor-pointer shadow-md flex flex-col space-y-2 items-center justify-center"
-            >
-              <img
-                className="w-32 h-32 object-contain "
-                src={offer.image}
-                alt=""
-              />
+      <div className="flex flex-col md:flex md:flex-row md:space-x-3">
+        {posts?.map((item, index) => (
+          <Link href={`/product/${item?._id}`}>
+            <div className="p-2 bg-white cursor-pointer shadow-md flex flex-col space-y-2 items-center justify-center">
+              <img className="w-32 h-32 object-contain" src={item?.image} />
+
               <div>
                 <p>
-                  Upto
-                  {offer?.offer}
+                  Upto {item?.offer}%{" "}
                   <span className="text-rose-600 font-normal text-sm ml-1">
                     Deal of the day
                   </span>
                 </p>
-                <p className="truncate font-normal text-sm mt-1 ">
-                  {offer.title.substring(0, 30)}
+
+                <p className="truncate font-normal text-sm mt-1">
+                  {item?.title.substring(0, 30)}
                 </p>
               </div>
             </div>
