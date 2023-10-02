@@ -4,6 +4,7 @@ import { groq } from "next-sanity";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { client } from "../../../../ecommerce-app/sanity";
+import Image from "next/image";
 
 function ProductDetails({ params }) {
   const offers = [
@@ -116,14 +117,14 @@ function ProductDetails({ params }) {
         {/* Left part */}
         <div>
           <div>
-            <img
+            <Image alt="..."
               className="w-80 h-80 rounded-sm object-contain cursor-pointer"
               src={product?.carouselImages[index]}
             />
           </div>
           <div className="hidden lg:flex lg:mt-12 gap-10 mt-10">
             {product?.carouselImages?.map((item, index) => (
-              <img
+              <Image alt="..."
                 key={index}
                 className="w-20 h-20 object-contain cursor-pointer"
                 src={item}

@@ -3,6 +3,7 @@ import { groq } from "next-sanity";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { client } from "../../../ecommerce-app/sanity";
+import Image from "next/image";
 
 async function getData() {
   return client.fetch(groq`*[_type == "deal"]`);
@@ -104,16 +105,19 @@ function Deals() {
   return (
     <div className="mt-4 mx-10 md:mt-32">
       <h1 className="text-xl font-bold mb-3">Today's Deals</h1>
-
       <div className="flex flex-col md:flex md:flex-row md:space-x-3">
         {posts?.map((item, index) => (
-          <Link href={`/product/${item?._id}`}>
+          <Link key={index} href={`/product/${item?._id}`}>
             <div className="p-2 bg-white cursor-pointer shadow-md flex flex-col space-y-2 items-center justify-center">
-              <img className="w-32 h-32 object-contain" src={item?.image} />
+              <Image
+                className="w-32 h-32 object-contain"
+                src={item?.image}
+                alt="..."
+              />
 
               <div>
                 <p>
-                  Upto {item?.offer}%{" "}
+                  Upto {item?.offer}%
                   <span className="text-rose-600 font-normal text-sm ml-1">
                     Deal of the day
                   </span>

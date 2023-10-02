@@ -1,12 +1,14 @@
 import React from "react";
 import Header from "../components/Header";
+import Image from "next/image";
 
 function Success() {
   return (
     <div>
       <Header />
       <div className="max-w-6xl mt-20 mx-auto flex flex-row items-center space-x-10">
-        <img
+        <Image
+          alt="..."
           className="object-contain"
           src="https://img.freepik.com/free-vector/tiny-man-ordering-products-online-via-smartphone_74855-15542.jpg?size=626&ext=jpg&ga=GA1.2.2068163573.1692966248&semt=ais"
         />

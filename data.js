@@ -1,3 +1,5 @@
+const { default: Image } = require("next/image");
+
 const offers = [
   {
     id: "0",
@@ -83,18 +85,18 @@ const offers = [
 //Banner
 <div>
   <div>
-    <img src="https://images-eu.ssl-images-amazon.com/images/G/31/img12/home-improvement/HMDGATEWAYS/Aug-HMD---Hero-2_3000x1200-N-2._CB598590461_.jpg" />
+    <Image src="https://images-eu.ssl-images-amazon.com/images/G/31/img12/home-improvement/HMDGATEWAYS/Aug-HMD---Hero-2_3000x1200-N-2._CB598590461_.jpg" />
   </div>
   <div>
-    <img src="https://images-eu.ssl-images-amazon.com/images/G/31/img21/Wireless/Shreyansh/BAU/Unrexc/D70978891_INWLD_BAU_Unrec_Uber_PC_Hero_3000x1200._CB594707876_.jpg" />
+    <Image src="https://images-eu.ssl-images-amazon.com/images/G/31/img21/Wireless/Shreyansh/BAU/Unrexc/D70978891_INWLD_BAU_Unrec_Uber_PC_Hero_3000x1200._CB594707876_.jpg" />
   </div>
   <div>
-    <img src="https://images-eu.ssl-images-amazon.com/images/G/31/img23/Softlines_JWL_SH_GW_Assets/Aug_23/MFD/Shoes/unrec/3000._CB598492396_.jpg" />
+    <Image src="https://images-eu.ssl-images-amazon.com/images/G/31/img23/Softlines_JWL_SH_GW_Assets/Aug_23/MFD/Shoes/unrec/3000._CB598492396_.jpg" />
   </div>
 </div>;
 
 //success page image
-<img
+<Image
   className="object-contain"
   src="https://img.freepik.com/free-vector/tiny-man-ordering-products-online-via-smartphone_74855-15542.jpg?size=626&ext=jpg&ga=GA1.2.2068163573.1692966248&semt=ais"
 />;

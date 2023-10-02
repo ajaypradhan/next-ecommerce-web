@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/CartReducer";
+import Image from "next/image";
 
 function Product({ item }) {
   const dispatch = useDispatch();
@@ -15,7 +16,11 @@ function Product({ item }) {
       <p>{item?.category}</p>
 
       <div className="flex justify-center">
-        <img className="w-32 h-32 object-contain" src={item?.image} />
+        <Image
+          alt="..."
+          className="w-32 h-32 object-contain"
+          src={item?.image}
+        />
       </div>
 
       <h4 className="text-xs text-yellow-500 mt-1">
