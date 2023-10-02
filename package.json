@@ -12,10 +12,12 @@
     "@heroicons/react": "^2.0.18",
     "@reduxjs/toolkit": "^1.9.6",
     "next": "latest",
+    "next-sanity": "^5.5.4",
     "react": "latest",
     "react-dom": "latest",
     "react-redux": "^8.1.2",
-    "react-responsive-carousel": "^3.2.23"
+    "react-responsive-carousel": "^3.2.23",
+    "sanity": "^3.16.7"
   },
   "devDependencies": {
     "autoprefixer": "latest",

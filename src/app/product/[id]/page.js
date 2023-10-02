@@ -1,6 +1,8 @@
 "use client";
 import Header from "@/app/components/Header";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../../../redux/CartReducer";
 
 function ProductDetails({ params }) {
   const offers = [
@@ -86,6 +88,12 @@ function ProductDetails({ params }) {
   ];
   const product = offers.find((offer) => offer.id === params?.id);
   const [index, setIndex] = useState(0);
+  const [added, setAdded] = useState(false);
+  const dispatch = useDispatch();
+  const addProductToCart = (product) => {
+    setAdded(true);
+    dispatch(addToCart(product));
+  };
   return (
     <div>
       <Header />
@@ -120,8 +128,11 @@ function ProductDetails({ params }) {
           <h4>Details: </h4>
           <p>Price: ₹ {product?.price} </p>
           <div className="flex flex-col space-y-3">
-            <button className="w-60 rounded-md p-2 mt-2 text-xs md:text-sm bg-gradient-to-b from-yellow-200 to-yellow-400">
-              Add To Cart
+            <button
+              onClick={() => addProductToCart(product)}
+              className="w-60 rounded-md p-2 mt-2 text-xs md:text-sm bg-gradient-to-b from-yellow-200 to-yellow-400"
+            >
+              {added ? "Added to Cart" : "Add to Cart"}
             </button>
             <button className="w-60 rounded-md p-2 mt-2 text-xs md:text-sm bg-gradient-to-b from-yellow-400 to-yellow-500">
               Buy Now
