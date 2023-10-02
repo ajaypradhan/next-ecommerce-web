@@ -1,6 +1,14 @@
 "use client";
 import Link from "next/link";
 import React from "react";
+import { client } from "../../../ecommerce-app/sanity";
+import { groq } from "next-sanity";
+import { useState } from "react";
+import { useEffect } from "react";
+
+async function getData() {
+  return client.fetch(groq`*[_type=="deal"]`);
+}
 
 function Deals() {
   const offers = [
@@ -84,13 +92,26 @@ function Deals() {
       size: "Normal",
     },
   ];
+
+  const [post, setPost] = useState([]);
+
+  useEffect(() => {
+    getData()
+      .then((data) => {
+        setPost(data);
+      })
+      .catch((error) => {
+        console.log("error getting data", error);
+      });
+  }, []);
+
   return (
     <div className="mt-4 mx-10 md:mt-32">
       <h1 className="text-xl font-bold mb-3">Today's Deals</h1>
 
       <div className="flex flex-col md:flex-row md:space-x-3">
-        {offers?.map((offer, index) => (
-          <Link href={`/product/${offer?.id}`}>
+        {post?.map((offer, index) => (
+          <Link href={`/product/${offer?._id}`}>
             <div
               key={index}
               className="p-2 bg-white cursor-pointer shadow-md flex flex-col space-y-2 items-center justify-center"

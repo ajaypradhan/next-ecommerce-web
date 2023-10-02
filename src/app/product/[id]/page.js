@@ -3,6 +3,9 @@ import Header from "@/app/components/Header";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../../redux/CartReducer";
+import { groq } from "next-sanity";
+import { client } from "../../../../ecommerce-app/sanity";
+import { useEffect } from "react";
 
 function ProductDetails({ params }) {
   const offers = [
@@ -86,7 +89,7 @@ function ProductDetails({ params }) {
       size: "Normal",
     },
   ];
-  const product = offers.find((offer) => offer.id === params?.id);
+  // const product = offers.find((offer) => offer.id === params?.id);
   const [index, setIndex] = useState(0);
   const [added, setAdded] = useState(false);
   const dispatch = useDispatch();
@@ -94,6 +97,21 @@ function ProductDetails({ params }) {
     setAdded(true);
     dispatch(addToCart(product));
   };
+
+  const { id } = params;
+  const [product, setProduct] = useState(null);
+  useEffect(() => {
+    if (id) {
+      const fetchData = async () => {
+        const query = groq`*[_type == "deal" && _id == $id][0]`;
+        const data = await client.fetch(query, { id });
+        setProduct(data);
+      };
+
+      fetchData();
+    }
+  }, [id]);
+
   return (
     <div>
       <Header />
@@ -104,12 +122,12 @@ function ProductDetails({ params }) {
           <div>
             <img
               className="w-80 h-80 rounded-sm object-contain cursor-pointer"
-              src={product.carouselImages[index]}
+              src={product?.carouselImages[index]}
               alt=""
             />
           </div>
           <div className="hidden lg:flex lg:mt-12 gap-10 mt-10">
-            {product.carouselImages?.map((image, index) => (
+            {product?.carouselImages?.map((image, index) => (
               <img
                 key={index}
                 className="w-20 h-20 object-contain cursor-pointer"
